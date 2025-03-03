@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Battleline AR - Playable Game</title>
+    <!-- A-Frameライブラリ -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- AR.js for A-Frame -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <!-- ドラッグ＆ドロップコンポーネント -->
+    <script src="https://unpkg.com/aframe-dragndrop-component@latest/dist/aframe-dragndrop-component.min.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam;">
+      <!-- マーカー認識 -->
+      <a-marker preset="hiro">
+        <!-- 移動・タップ可能なカード -->
+        <a-entity id="card"
+                  geometry="primitive: box; height: 0.7; width: 0.5; depth: 0.1"
+                  material="color: #4CC3D9"
+                  position="0 0.5 0"
+                  dragndrop
+                  event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1.2"
+                  event-set__mouseleave="_event: mouseleave; scale: 1 1 1">
+        </a-entity>
+        <!-- カードにテキストを表示 -->
+        <a-text value="Card" align="center" position="0 1.2 0" scale="2 2 2"></a-text>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+    
+    <script>
+      // カードをタップしたときのイベントリスナー
+      const cardEl = document.querySelector('#card');
+      cardEl.addEventListener('click', function (evt) {
+        alert('カードがタップされました！');
+      });
+    </script>
+  </body>
+</html>
